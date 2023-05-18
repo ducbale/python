@@ -1,0 +1,55 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container">
+    <div class="features_items"><!--features_items-->
+        <h2 class="title text-center">Kết Quả Tìm Kiếm</h2>
+        {% if product|length < 1 %}
+        <div class="content-404">
+            <img src="/static/images/404/404.png" style="width:40%;height:40%;" class="img-responsive" alt=""/>
+            <h1><b>OPPS!</b> PIPStore Không Tìm Thấy Kết Quả Tương Tự.</h1>
+            <p>Bạn vui lòng thử tìm với từ khoá khác.</p>
+            
+        </div>
+        {%endif%}
+        {% for prod in product %}
+        <div class="col-sm-4">
+            <div class="product-image-wrapper" style="width:250px;">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="/{{prod.image}}" alt=""  height="250px;"/>
+                        <h2>{{prod.price}}đ</h2>
+                        <p>{{prod.name}}</p>
+                        {%if prod.Availability == 'Còn Hàng'%}
+                        <a href="{% url 'cart_add' prod.id %}" class="btn btn-default add-to-cart"><i
+                                class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                            {%else%}
+							<a style="background-color: grey;color: white" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Hết hàng</a>
+							{%endif%}
+                    </div>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <h2>{{prod.price}}đ</h2>
+                            <p></p>
+                            {%if prod.Availability == 'Còn Hàng'%}
+                            <a href="{% url 'cart_add' prod.id %}" class="btn btn-default add-to-cart"><i
+                                    class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                    {%else%}
+									<a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Hết hàng</a>
+									{%endif%}
+                        </div>
+                    </div>
+                </div>
+                <div class="choose">
+                    <ul class="nav nav-pills nav-justified">
+						<li><a href="/product/{{prod.id}}"><i class="fa fa-plus-square"></i>Xem Chi Tiết</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div><!--features_items-->
+</div>
+{%endblock%}

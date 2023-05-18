@@ -1,0 +1,72 @@
+{% extends 'master.html' %}
+{% block body%}
+ <div id="contact-page" class="container">
+    	<div class="bg">
+	    	<div class="row">
+	    		<div class="col-sm-12">
+					<h2 class="title text-center">Liên Hệ <strong>Chúng Tôi</strong></h2>
+					<div id="gmap" class="contact-map">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7667.63866595325!2d108.15439726845588!3d16.074862384411375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1682347576395!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                	</div>
+				</div>
+			</div>
+            <br>
+    		<div class="row">
+	    		<div class="col-sm-8">
+	    			<div class="contact-form">
+	    				<h2 class="title text-center">Hãy giữ liên lạc</h2>
+	    				<div class="status alert alert-success" style="display: none"></div>
+				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+							{% csrf_token %}
+				            <div class="form-group col-md-6">
+				                <input type="text" name="name" class="form-control" required="required" placeholder="Tên của bạn">
+				            </div>
+				            <div class="form-group col-md-6">
+				                <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+				            </div>
+				            <div class="form-group col-md-12">
+				                <input type="text" name="subject" class="form-control" required="required" placeholder="Tiêu Đề">
+				            </div>
+				            <div class="form-group col-md-12">
+				                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Lời Nhắn"></textarea>
+				            </div>
+				            <div class="form-group col-md-12">
+				                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+				            </div>
+				        </form>
+	    			</div>
+	    		</div>
+	    		<div class="col-sm-4">
+	    			<div class="contact-info">
+	    				<h2 class="title text-center">Thông tin</h2>
+	    				<address>
+	    					<p>PIP-STORE</p>
+							<p>54 Nguyễn Lương Bằng , Liên Chiểu , DN</p>
+							<p>Việt Nam</p>
+							<p>Mobile: 0865332774</p>
+							<p>Email: PIPStore@gmail.com</p>
+	    				</address>
+	    				<div class="social-networks">
+	    					<h2 class="title text-center">mạng xã hội</h2>
+							<ul>
+								<li>
+									<a href="#"><i class="fa fa-facebook"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-google-plus"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-youtube"></i></a>
+								</li>
+							</ul>
+	    				</div>
+	    			</div>
+    			</div>
+	    	</div>
+    	</div>
+    </div><!--/#contact-page-->
+
+{%endblock%}

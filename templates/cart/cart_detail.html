@@ -1,0 +1,167 @@
+{% extends 'master.html' %}
+{% load cart_tag %}
+{% block body%}
+<section style="width: 100%;" id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li class="active">Giỏ Hàng</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Hình ảnh</td>
+							<td class="description">Tên Sản Phẩm</td>
+							<td class="price">Giá Thành</td>
+							<td class="quantity">Số Lượng</td>
+							<td class="total">Thành Tiền</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+					{% comment %} <a href="{% url 'cart_clear' %}">Clear Cart</a> {% endcomment %}
+					<!-- Trigger the modal with a button -->
+					{% comment %} <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Clear Cart</button> {% endcomment %}
+
+					<!-- Modal xoá tất cả -->
+					<div id="myModal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Xoá Tất Cả</h4>
+						</div>
+						<div class="modal-body">
+							<p>Bạn muốn xoá tất cả giỏ hàng?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+							<a style="background-color: red;color: white;" class="btn btn-default" href="{% url 'cart_clear' %}" >Xoá</a>
+
+						</div>
+						</div>
+
+					</div>
+					</div>
+                    {% for key,value in request.session.cart.items %}
+						<tr>
+							<td class="cart_product" style="width: 300px;">
+								<a href="" ><img style= "width: 150px;" src="{{value.image}}" alt=""></a>
+							</td>
+							<td class="cart_description" style="max-width: 250px ">
+								<h4><a href="" >{{value.name}}</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>{{value.price}}đ</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href="{% url 'item_increment' value.product_id %}"> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{value.quantity}} " autocomplete="off" size="2">
+									{%if value.quantity == 1 %}
+									<a style="pointer-events: none" class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+									{%else%}
+									<a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+									{%endif%}
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">{{ value.price|multiply:value.quantity }}đ</p>
+							</td>
+							<td class="cart_delete">
+								{% comment %} <button class="cart_quantity_delete" href="{% url 'item_clear' key %}"><i class="fa fa-times"></i></button> {% endcomment %}
+								<button type="button" class="cart_quantity_delete" data-toggle="modal" data-target="#myModal2" ><i class="fa fa-times"></i></button>
+								<!-- Modal xoá từng sách-->
+								<div id="myModal2" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Xác Nhận</h4>
+									</div>
+									<div class="modal-body">
+										<p>Bạn muốn xoá vật phẩm này khỏi giỏi hàng?</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+										<a class="btn btn-default" style="background-color: red;" href="{% url 'item_clear' key %}">Xoá</a>
+
+									</div>
+									</div>
+
+								</div>
+								</div>
+							</td>
+						</tr>
+
+                        {% endfor %}
+
+					</tbody>
+					<tfoot>
+						<td>
+
+						</td>
+						<td>
+
+						</td>
+						<td>
+							<hr>
+							<h4>Tổng Tiền:</h4>
+						</td>
+						<td>
+						</td>
+						<td>
+								<h3>{{cart_total_amount}}đ</h3>
+						</td>
+					</tfoot>
+				</table>
+			</div>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="float: right;background-color:green">Đặt Hàng</button>
+			<button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Xoá Giỏ</button>
+		</div>
+	</section> <!--/#cart_items-->
+<br>
+
+
+
+
+
+<!-- modal đặt hàng -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Đặt Hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/checkout/">
+			{%csrf_token%}
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Số Điện Thoại:</label>
+            <input type="text" name="phone" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Địa Chỉ:</label>
+            <textarea class="form-control" name="address" id="message-text"></textarea>
+          </div>
+			<div class="modal-footer">
+
+        <button type="submit" class="btn btn-primary">Xác Nhận</button>
+      </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{%  endblock %}

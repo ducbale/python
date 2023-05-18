@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>PIP | PIPStore</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/price-range.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+
+<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					
+				</div>
+			</div>
+		</div><!--/header_top-->
+
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="{% url 'index'%}"><img src="/static/images/home/logoo1.png" width="125" alt="" ></a>
+						</div>
+						&nbsp;
+						<p > SHOP QUẦN ÁO PIP</p>					
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+
+								<li><a href="/order/"><i class="fa fa-star"></i>Đơn hàng</a></li>
+
+								<li><a href="/cart/cart-detail/"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span class="badge badge-secondary">{{request.session.cart|length}}</span> </a></li>
+								{% if user.is_authenticated%}
+								<li><a href="{% url 'user_logout' %}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+								{% else %}
+								<li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								{% endif %}
+								{% if user.is_superuser%}
+								<li><a href="/admin/"><i class="fa fa-lock"></i> Admin </a></li>
+								{% else %}
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="/product/">Cửa Hàng<i class="active"></i></a></li>
+								<li><a href="{% url 'contact_page'%}">Liên Hệ</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<form method="get" action="/search/">
+						<div class="search_box pull-right">
+							<input name="query" type="text" placeholder="Tìm kiếm"/>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+
+{% block body %}  {% endblock %}
+
+
+    <footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>PIP</span>-STORE</h2>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Dịch vụ</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Hỗ trợ Online</a></li>
+								<li><a href="{%url 'contact_page'%}">Liên Hệ Với Chúng Tôi</a></li>
+								<li><a href="{%url 'order'%}">Order Status</a></li>
+								<li><a href="#">Đổi Vị Trí</a></li>
+								<li><a href="#">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>cửa hàng</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Áo Thun</a></li>
+								<li><a href="#">Quần short</a></li>
+								<li><a href="#">Áo Khoác</a></li>
+								<li><a href="#">Quần âu</a></li>
+								<li><a href="#">Áo sơmi</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Điều Khoản</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Messi</a></li>
+								<li><a href="#">Neymar</a></li>
+								<li><a href="#">Ronaldo</a></li>
+								<li><a href="#">Ronaldo De Lima</a></li>
+								<li><a href="#">Iniesta</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>PIPStore</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Thông Tin</a></li>
+								<li><a href="#">Việc Làm</a></li>
+								<li><a href="{%url 'contact_page'%}">Địa Điểm</a></li>
+								<li><a href="#">Quảng Cáo</a></li>
+								<li><a href="#">Bản Quyền</a></li>
+							</ul>
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2023 PIP-BOOKSTORE.</p>
+					{% comment %} <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p> {% endcomment %}
+				</div>
+			</div>
+		</div>
+
+	</footer><!--/Footer-->
+<script type="text/javascript">
+
+const api_url ="https://zenquotes.io/api/quotes/";
+
+async function getapi()
+{
+  const response = await fetch("https://zenquotes.io/api/quotes/");
+  var data = await response.json();
+  console.log(data);
+}
+
+{% comment %} getapi(api_url); {% endcomment %}
+
+</script>
+<script src="/static/js/jquery.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.scrollUp.min.js"></script>
+	<script src="/static/js/price-range.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

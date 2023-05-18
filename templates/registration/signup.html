@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+{% block body %}
+<section id="form" style="margin-left: 30%; "> <!--form-->
+		<div class="container">
+			<div class="col-sm-4 col-sm-offset-1">
+				<div class="signup-form"><!--login form-->
+						<h2>Đăng Ký Tài Khoản</h2>
+						<form method="post">
+							{% csrf_token %}
+							{% for field in form %}
+							{{ field.errors }}
+							<p>{{ field }}</p>
+							{% endfor %}
+							<button class="btn btn-default" type="submit" >Đăng Ký</button><br>
+							<span style="margin-left: 80px;">Đã Có Tài Khoản? </span>&nbsp;<a href="{% url 'login'%}">Đăng Nhập</a>
+						</form>
+				</div>
+			</div>
+		</div>
+</section>
+
+{% endblock %}
